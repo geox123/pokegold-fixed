@@ -1881,10 +1881,15 @@ BattleCommand_EffectChance:
 	ld hl, wEnemyMoveStruct + MOVE_CHANCE
 .got_move_chance
 
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	scf ; Force RNG to be called
+	jr z, .nofix ; Don't apply fix in link battles, for compatibility
 	ld a, [hl]
 	sub 100 percent
 	; If chance was 100%, RNG won't be called (carry not set)
 	; Thus chance will be subtracted from 0, guaranteeing a carry
+.nofix
 	call c, BattleRandom
 	cp [hl]
 	pop hl
