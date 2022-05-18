@@ -52,7 +52,7 @@ SetXYCompareFlags::
 	add $4
 	ld d, a
 	ld a, [wPlayerStandingMapY]
-	ld a, $4 ; should be "add $4"
+	add $4
 	ld e, a
 	push bc
 	ld c, 0
