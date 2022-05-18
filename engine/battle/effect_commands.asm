@@ -2668,12 +2668,13 @@ PlayerAttackDamage:
 	ret
 
 TruncateHL_BC:
+.loop
 ; Truncate 16-bit values hl and bc to 8-bit values b and c respectively.
 ; b = hl, c = bc
 
 	ld a, h
 	or b
-	jr z, .done
+	jr z, .finish
 
 	srl b
 	rr c
@@ -2693,8 +2694,19 @@ TruncateHL_BC:
 
 	ld a, l
 	or h
-	jr nz, .done
+	jr nz, .finish
 	inc l
+
+.finish
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	jr z, .done
+; If we go back to the loop point,
+; it's the same as doing this exact
+; same check twice.
+	ld a, h
+	or b
+	jr nz, .loop
 
 .done
 	ld b, l
