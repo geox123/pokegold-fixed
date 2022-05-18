@@ -857,9 +857,7 @@ LureBallMultiplier:
 	ret
 
 MoonBallMultiplier:
-; This function is buggy.
-; Intent:  multiply catch rate by 4 if mon evolves with moon stone
-; Reality: no boost
+; multiply catch rate by 4 if mon evolves with moon stone
 	push bc
 	ld a, [wTempEnemyMonSpecies]
 	dec a
