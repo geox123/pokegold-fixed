@@ -143,6 +143,11 @@ WildFled_EnemyFled_LinkBattleCanceled:
 	ret
 
 BattleTurn:
+	ldh a, [hInMenu]
+	push af
+	ld a, 1 ; or "xor a" for the value 0
+	ldh [hInMenu], a
+
 .loop
 	call CheckContestBattleOver
 	jr c, .quit
@@ -199,6 +204,8 @@ BattleTurn:
 	jr .loop
 
 .quit
+	pop af
+	ldh [hInMenu], a
 	ret
 
 HandleBetweenTurnEffects:
